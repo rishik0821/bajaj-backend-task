@@ -164,4 +164,13 @@ curl -X POST https://bajaj-backend-task.vercel.app/bfhl \
 └── README.md        # You’re reading this
 ```
 
+---
+
+### 🧠 Bonus Features
+
+- ✅ Dynamically generates `user_id` from full name and DOB
+- ✅ Supports deeply nested arrays via automatic flattening
+- ✅ Includes `/health` endpoint with uptime and timestamp
+
+
 
