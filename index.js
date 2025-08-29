@@ -12,8 +12,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Constants - YOUR PERSONAL INFO
+const fullName = "Sai Rishik";
+const dob = "21082005";
+
+function generateUserId(name, dob) {
+  return name.toLowerCase().replace(/\s+/g, "_") + "_" + dob;
+}
+
 const USER_INFO = {
-  user_id: "sai_rishik_21082005",
+  user_id: generateUserId(fullName, dob),
   email: "sairishik589@gmail.com",
   roll_number: "22BCE7710",
 };
@@ -32,6 +39,8 @@ const isSpecialCharacter = (str) => {
   // If it's not a number and not alphabets, it's a special character
   return !isNumber(str) && !isAlphabet(str);
 };
+
+const flattenArray = (arr) => arr.flat(Infinity);
 
 const processArray = (data) => {
   const oddNumbers = [];
@@ -136,7 +145,8 @@ app.post("/bfhl", (req, res) => {
     }
 
     // Process the array
-    const result = processArray(data);
+    const flatData = flattenArray(data);
+    const result = processArray(flatData);
 
     // Build response
     const response = {
@@ -162,7 +172,14 @@ app.post("/bfhl", (req, res) => {
   }
 });
 
-// 404 handler
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime().toFixed(2) + " seconds",
+  });
+});
+
 app.use((req, res) => {
   res.status(404).json({
     is_success: false,
@@ -170,7 +187,6 @@ app.use((req, res) => {
   });
 });
 
-// Error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
