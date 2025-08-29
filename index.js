@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Constants - YOUR PERSONAL INFO
-const fullName = "Sai Rishik";
+const fullName = "Sai Rishik Dongari";
 const dob = "21082005";
 
 function generateUserId(name, dob) {
